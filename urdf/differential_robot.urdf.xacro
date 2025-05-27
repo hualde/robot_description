@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <robot name="differential_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- Parámetros básicos -->
-  <xacro:property name="wheel_radius" value="0.065"/>
-  <xacro:property name="wheel_separation" value="0.5"/>
+  <xacro:property name="wheel_radius" value="0.0325"/>
+  <xacro:property name="wheel_separation" value="0.095"/>
 
   <!-- Link principal (chasis en gris) -->
   <link name="base_link">
@@ -14,7 +14,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="1.57 0 1.57"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/base_link.stl" scale="0.003 0.003 0.003"/>
+        <mesh filename="package://robot_description/meshes/base_link.stl" scale="0.0008 0.0008 0.0008"/>
       </geometry>
       <material name="gray">
         <color rgba="0.5 0.5 0.5 1"/>
@@ -23,7 +23,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="1.57 0 1.57"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/base_link.stl" scale="0.003 0.003 0.003"/>
+        <mesh filename="package://robot_description/meshes/base_link.stl" scale="0.0008 0.0008 0.0008"/>
       </geometry>
     </collision>
   </link>
@@ -80,7 +80,7 @@
   <joint name="caster_mount_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_mount_link"/>
-    <origin xyz="-0.2 0 -0.0125" rpy="0 0 0"/>
+    <origin xyz="-0.035 0 -0.035" rpy="0 0 0"/>
   </joint>
 
   <!-- 2) Eje de rotación roll (X) -->
@@ -126,13 +126,13 @@
   <joint name="joint_wheel_left" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_left_link"/>
-    <origin xyz="0 ${-wheel_separation/2} 0" rpy="0 0 0"/>
+    <origin xyz="0.025 ${-wheel_separation/2} -0.01" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
   <joint name="joint_wheel_right" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_right_link"/>
-    <origin xyz="0 ${wheel_separation/2} 0" rpy="0 0 0"/>
+    <origin xyz="0.025 ${wheel_separation/2} -0.01" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
