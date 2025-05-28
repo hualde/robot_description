@@ -8,6 +8,9 @@ Panels:
         - /Status1
         - /RobotModel1
         - /TF1
+        - /Odometry1
+        - /Odometry1/Topic1
+        - /Odometry1/Shape1
       Splitter Ratio: 0.5
     Tree Height: 1094
   - Class: rviz_common/Selection
@@ -116,6 +119,8 @@ Visualization Manager:
           Value: true
         caster_roll_link:
           Value: true
+        odom:
+          Value: true
         wheel_left_link:
           Value: true
         wheel_right_link:
@@ -126,21 +131,61 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          caster_mount_link:
-            caster_roll_link:
-              caster_ball_link:
-                {}
-          wheel_left_link:
-            {}
-          wheel_right_link:
-            {}
+        odom:
+          base_link:
+            caster_mount_link:
+              caster_roll_link:
+                caster_ball_link:
+                  {}
+            wheel_left_link:
+              {}
+            wheel_right_link:
+              {}
       Update Interval: 0
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz_default_plugins/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.029999999329447746
+        Head Radius: 0.009999999776482582
+        Shaft Length: 0.10000000149011612
+        Shaft Radius: 0.004999999888241291
+        Value: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /diff_drive_controller/odom
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -198,10 +243,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.30539825558662415
+      Pitch: 0.28539830446243286
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.5254364013671875
+      Yaw: 4.120412826538086
     Saved: ~
 Window Geometry:
   Displays:
