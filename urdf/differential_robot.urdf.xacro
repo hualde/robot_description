@@ -136,7 +136,7 @@
     <axis xyz="0 1 0"/>
   </joint>
 
-  <!-- Transmissions -->
+  <!-- Transmissions. Creo que s epueden quitar -->
   <transmission name="trans_wheel_left">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_wheel_left"/>

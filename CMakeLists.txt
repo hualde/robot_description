@@ -13,9 +13,9 @@ find_package(ament_cmake REQUIRED)
 find_package(xacro REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 
-# Instalar URDF/XACRO y launch files
+# Instalar URDF/XACRO, launch files, meshes y config
 install(
-  DIRECTORY urdf launch meshes
+  DIRECTORY urdf launch meshes config
   DESTINATION share/${PROJECT_NAME}
 )
 
