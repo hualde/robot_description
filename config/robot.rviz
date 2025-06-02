@@ -119,8 +119,6 @@ Visualization Manager:
           Value: true
         caster_roll_link:
           Value: true
-        odom:
-          Value: true
         wheel_left_link:
           Value: true
         wheel_right_link:
@@ -131,16 +129,15 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_link:
-            caster_mount_link:
-              caster_roll_link:
-                caster_ball_link:
-                  {}
-            wheel_left_link:
-              {}
-            wheel_right_link:
-              {}
+        base_link:
+          caster_mount_link:
+            caster_roll_link:
+              caster_ball_link:
+                {}
+          wheel_left_link:
+            {}
+          wheel_right_link:
+            {}
       Update Interval: 0
       Value: true
     - Angle Tolerance: 0.10000000149011612
@@ -185,7 +182,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: odom
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -243,10 +240,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.28539830446243286
+      Pitch: -0.16460184752941132
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.120412826538086
+      Yaw: 4.260443210601807
     Saved: ~
 Window Geometry:
   Displays:
