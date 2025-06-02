@@ -32,7 +32,7 @@ def generate_launch_description():
         # Argumento para activar/desactivar RViz
         DeclareLaunchArgument(
             'rviz',
-            default_value='false',
+            default_value='true',
             description='Lanzar RViz si es true'
         ),
 
@@ -61,7 +61,7 @@ def generate_launch_description():
             name='rviz2',
             output='screen',
             arguments=[
-                '-d', PathJoinSubstitution([pkg_share, 'launch', 'view_robot.rviz'])
+                '-d', PathJoinSubstitution([pkg_share, 'config', 'robot.rviz'])
             ],
             condition=IfCondition(LaunchConfiguration('rviz'))
         ),
