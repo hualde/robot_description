@@ -28,6 +28,7 @@
     </collision>
   </link>
 
+  
   <!-- Ruedas motrices (en negro) -->
   <link name="wheel_left_link">
     <inertial>
@@ -189,5 +190,25 @@
     <joint name="joint_wheel_right"/>
     <actuator name="motor_right"/>
   </transmission>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+  </gazebo>
+  <gazebo reference="wheel_left_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="wheel_right_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="caster_mount_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="caster_roll_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="caster_ball_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
 
 </robot>
