@@ -76,7 +76,28 @@
 
   <!-- Caster de bola (en negro) -->
   <!-- 1) Montaje fijo -->
-  <link name="caster_mount_link"/>
+  <link name="caster_mount_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.01"/>
+      </geometry>
+    </collision>
+  </link>
   <joint name="caster_mount_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_mount_link"/>
@@ -84,7 +105,28 @@
   </joint>
 
   <!-- 2) Eje de rotación roll (X) -->
-  <link name="caster_roll_link"/>
+  <link name="caster_roll_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.005"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.005"/>
+      </geometry>
+    </collision>
+  </link>
   <joint name="caster_roll_joint" type="continuous">
     <parent link="caster_mount_link"/>
     <child link="caster_roll_link"/>

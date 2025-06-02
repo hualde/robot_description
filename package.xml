@@ -18,6 +18,8 @@
   <depend>robot_state_publisher</depend>
   <depend>launch</depend>
   <depend>launch_ros</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_pkgs</depend>
 
 
   <export>
