@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot name="differential_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="differential_robot.urdf.xacro" />
+
+    <ros2_control name="GazeboSystem" type ="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+
+        <joint name="joint_wheel_left">
+            <command_interface name="velocity">
+                <param name="min">-10.0</param>
+                <param name="max">10.0</param>
+            </command_interface>
+            <state_interface name="velocity" />
+            <state_interface name="position" />
+        </joint>
+
+         <joint name="joint_wheel_right">
+            <command_interface name="velocity">
+                <param name="min">-10.0</param>
+                <param name="max">10.0</param>
+            </command_interface>
+            <state_interface name="velocity" />
+            <state_interface name="position" />
+        </joint>
+
+    </ros2_control>
+
+    <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so" >
+            <parameters>$(find robot_description)/config/my_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>
