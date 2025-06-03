@@ -2,7 +2,7 @@
 import os
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess, TimerAction
 from launch.substitutions import (
     Command,
     LaunchConfiguration,
@@ -32,7 +32,12 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(gazebo_ros_pkg_share, 'launch', 'gazebo.launch.py')
-        )
+        ),
+        launch_arguments={
+            'verbose': 'true',
+            'pause': 'false',
+            'world': os.path.join(gazebo_ros_pkg_share, 'worlds', 'empty.world')
+        }.items()
     )
 
     # Nodo para spawnear el robot en Gazebo
@@ -47,6 +52,27 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Nodo que publica el árbol TF a partir del URDF y de /joint_states
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[robot_description]
+    )
+
+    # Nodo RViz (solo si rviz:=true)
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=[
+            '-d', os.path.join(pkg_share, 'config', 'robot.rviz')
+        ],
+        condition=IfCondition(LaunchConfiguration('rviz'))
+    )
+
     return LaunchDescription([
         # Argumento para activar/desactivar RViz
         DeclareLaunchArgument(
@@ -55,39 +81,18 @@ def generate_launch_description():
             description='Lanzar RViz si es true'
         ),
 
-        # GUI para manipular joints y publicar /joint_states
-        Node(
-            package='joint_state_publisher_gui',
-            executable='joint_state_publisher_gui',
-            name='joint_state_publisher_gui',
-            output='screen',
-            parameters=[robot_description]
-        ),
-
-        # Nodo que publica el árbol TF a partir del URDF y de /joint_states
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[robot_description]
-        ),
-
-        # Nodo RViz (solo si rviz:=true)
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=[
-                '-d', os.path.join(pkg_share, 'config', 'robot.rviz')
-            ],
-            condition=IfCondition(LaunchConfiguration('rviz'))
-        ),
-
         # Lanzar Gazebo
         gazebo,
 
-        # Spawnear el robot en Gazebo
-        spawn_entity,
+        # Publicar el estado del robot
+        robot_state_publisher,
+
+        # Esperar 2 segundos antes de spawnear el robot
+        TimerAction(
+            period=2.0,
+            actions=[spawn_entity]
+        ),
+
+        # Lanzar RViz si está habilitado
+        rviz,
     ])
