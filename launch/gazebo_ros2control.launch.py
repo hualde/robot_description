@@ -73,6 +73,33 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
+    # Cargar y activar los controladores
+    controller_params_file = os.path.join(pkg_share, 'config', 'my_controllers.yaml')
+
+    controller_manager = Node(
+        package='controller_manager',
+        executable='ros2_control_node',
+        parameters=[
+            robot_description,
+            controller_params_file
+        ],
+        output='screen',
+    )
+
+    diff_drive_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['diff_drive_controller'],
+        output='screen',
+    )
+
+    joint_broad_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['joint_state_broadcaster'],
+        output='screen',
+    )
+
     return LaunchDescription([
         # Argumento para activar/desactivar RViz
         DeclareLaunchArgument(
@@ -95,4 +122,16 @@ def generate_launch_description():
 
         # Lanzar RViz si está habilitado
         rviz,
+
+        # Lanzar el controlador
+        controller_manager,
+
+        # Esperar 2 segundos antes de activar los controladores
+        TimerAction(
+            period=2.0,
+            actions=[
+                diff_drive_spawner,
+                joint_broad_spawner
+            ]
+        ),
     ])
